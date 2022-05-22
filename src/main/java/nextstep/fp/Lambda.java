@@ -27,27 +27,39 @@ public class Lambda {
     }
 
     public static int sumAll(List<Integer> numbers) {
-        int total = 0;
-        for (int number : numbers) {
-            total += number;
-        }
-        return total;
+//        return sumWithCondition(numbers, new Conditional() {
+//            @Override
+//            public boolean test(Integer number) {
+//                return true;
+//            }
+//        });
+        return sumWithCondition(numbers, number -> true);
     }
 
     public static int sumAllEven(List<Integer> numbers) {
-        int total = 0;
-        for (int number : numbers) {
-            if (number % 2 == 0) {
-                total += number;
-            }
-        }
-        return total;
+//        return sumWithCondition(numbers, new Conditional() {
+//            @Override
+//            public boolean test(Integer number) {
+//                return number % 2 == 0;
+//            }
+//        });
+        return sumWithCondition(numbers, number -> number % 2 == 0);
     }
 
     public static int sumAllOverThree(List<Integer> numbers) {
+//        return sumWithCondition(numbers, new Conditional() {
+//            @Override
+//            public boolean test(Integer number) {
+//                return number > 3;
+//            }
+//        });
+        return sumWithCondition(numbers, number -> number > 3);
+    }
+
+    private static int sumWithCondition(List<Integer> numbers, Conditional c) {
         int total = 0;
         for (int number : numbers) {
-            if (number > 3) {
+            if (c.test(number)) {
                 total += number;
             }
         }
