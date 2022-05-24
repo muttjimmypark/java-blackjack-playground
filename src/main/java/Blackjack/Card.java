@@ -29,9 +29,8 @@ public class Card {
 
     public String getInfo() {
         List<String> overTen = Arrays.asList("J", "Q", "K");
-        String numberToString;
+        String numberToString = Integer.toString(number);
 
-        numberToString = Integer.toString(number);
         if (number == CARD_NUMBER_MIN) {
             numberToString = "A";
         }
