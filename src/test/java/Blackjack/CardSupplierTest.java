@@ -15,8 +15,8 @@ public class CardSupplierTest {
     }
 
     @Test
-    void getOpenCard() {
-        String test = cardSupplier.getOpenCard().getInfo();
+    void getCard() {
+        String test = cardSupplier.getCard().getInfo();
         System.out.println(test);
         assertThat(test).isNotEqualTo("(HIDDEN CARD)");
     }

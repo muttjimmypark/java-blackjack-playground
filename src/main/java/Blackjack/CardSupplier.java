@@ -12,31 +12,26 @@ public class CardSupplier {
         suppliedCards = new ArrayList<>();
     }
 
-    private Card getCard(LambdaReturnBoolean lambdaReturnBoolean) {
-        //checkSupplyIsOver()
+    public Card getCard() {
         if (suppliedCards.size() >= CARD_TYPE_MAX) {
             throw new IllegalArgumentException(MESSAGE_ALL_CARD_SUPPLIED);
         }
 
-        //makeNotDuplicatedCard()
         Card result;
         do {
             result = new Card();
         } while (suppliedCards.contains(result));
 
-        //
-        if (lambdaReturnBoolean.condition()) {
-            result.changeHiddenStatus();
-        }
         suppliedCards.add(result);
+
         return result;
     }
 
-    public Card getOpenCard() {
-        return getCard(() -> false);
-    }
-
     public Card getHiddenCard() {
-        return getCard(() -> true);
+        Card result = getCard();
+
+        result.changeHiddenStatus();
+
+        return result;
     }
 }

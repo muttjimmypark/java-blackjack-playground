@@ -35,7 +35,7 @@ public class Card {
             numberToString = "A";
         }
         if (number > CARD_NUMBER_CALCULATE_MAX) {
-            numberToString = overTen.get(number - CARD_NUMBER_CALCULATE_MAX -1);
+            numberToString = overTen.get(number - 11);
         }
 
         if (hiddenStatus) {
@@ -50,24 +50,6 @@ public class Card {
 
     public int getNumberForCalculate() {
         return Math.min(number, CARD_NUMBER_CALCULATE_MAX);
-    }
-
-    @Override
-    public String toString() {
-        List<String> overTen = Arrays.asList("J", "Q", "K");
-        String numberToString = Integer.toString(number);
-
-        if (number == CARD_NUMBER_MIN) {
-            numberToString = "A";
-        }
-        if (number > CARD_NUMBER_CALCULATE_MAX) {
-            numberToString = overTen.get(number - CARD_NUMBER_CALCULATE_MAX -1);
-        }
-
-        if (hiddenStatus) {
-            return "(HIDDEN CARD)";
-        }
-        return String.format("(%s, %s)", numberToString, suit);
     }
 
     @Override
