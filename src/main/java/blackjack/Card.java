@@ -36,8 +36,10 @@ public class Card {
         return Math.min(CALCULATE_UPPER_LIMIT, number);
     }
 
-    public void changeHiddenStatus() {
-        hiddenStatus = !hiddenStatus;
+    public Card changeHiddenStatus() {
+        Card editCard = this;
+        editCard.hiddenStatus = !editCard.hiddenStatus;
+        return editCard;
     }
 
     private static int checkValidNumber(int input) {

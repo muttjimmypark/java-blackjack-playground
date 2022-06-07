@@ -37,7 +37,7 @@ public class CardTest {
         card = new Card(11, "diAMOnd");
         assertThat(card.toString()).isEqualTo("(J, DIAMOND)");
 
-        card.changeHiddenStatus();
+        card = card.changeHiddenStatus();
         assertThat(card.toString()).isEqualTo("(HIDDEN CARD)");
     }
 
