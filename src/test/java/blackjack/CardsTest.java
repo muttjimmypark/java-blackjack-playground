@@ -1,5 +1,6 @@
 package blackjack;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,6 +39,10 @@ public class CardsTest {
 
         cards.addCard(new Card(11, "diamond"));
         assertThat(cards.getScore()).isEqualTo(13);
+    }
 
+    @AfterEach
+    void tearDown() {
+        cards = null;
     }
 }
