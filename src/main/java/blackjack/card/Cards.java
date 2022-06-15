@@ -1,4 +1,4 @@
-package blackjack;
+package blackjack.card;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +29,7 @@ public class Cards {
     }
 
     private void calculateScore() {
-        score =  cards.stream()
+        score = cards.stream()
                 .mapToInt(Card::getNumberForCalculate)
                 .sum();
 
