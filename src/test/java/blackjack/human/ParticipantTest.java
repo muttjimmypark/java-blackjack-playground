@@ -25,7 +25,8 @@ public class ParticipantTest {
         assertThat(human).isInstanceOf(Dealer.class);
 
         human = new Player("yena");
-        assertThat(human).isInstanceOf(Player.class);
+        assertThat(human).isInstanceOf(Player.class)
+                .isEqualTo(new Player("yena"));
 
         assertThatThrownBy(() -> new Player("Dealer"))
                 .isInstanceOf(IllegalArgumentException.class);

@@ -83,8 +83,8 @@ public class Card {
         return number == card.number && suit == card.suit;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(number, suit);
-    }
+//    @Override
+//    public int hashCode() {
+//        return Objects.hash(number, suit);
+//    }
 }

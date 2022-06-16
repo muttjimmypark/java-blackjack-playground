@@ -40,5 +40,7 @@ public class InputView {
         } while (false);
 
         String yn = new Scanner(System.in).next().toLowerCase();
+
+        return null;
     }
 }
