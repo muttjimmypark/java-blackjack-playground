@@ -1,12 +1,12 @@
 package blackjack.view;
 
+import blackjack.card.CardSupplier;
 import blackjack.human.Dealer;
 import blackjack.human.Participant;
 import blackjack.human.Player;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
@@ -34,13 +34,29 @@ public class InputView {
         return Arrays.asList(nameInput.split(","));
     }
 
+
+    /**
+     *
+     */
     public static Participant askMoreCard(Participant participant) {
-        do {
-            System.out.printf("%s는 카드를 한장 더 받겠습니까? (y/n) : ");
-        } while (false);
+        String yn;
 
-        String yn = new Scanner(System.in).next().toLowerCase();
+        while (true) {
+            System.out.printf("%s는 카드를 한장 더 받겠습니까? (y/n) : ", participant.getName());
+            yn = new Scanner(System.in).next().toLowerCase();
 
-        return null;
+            if (yn.equals("y") || yn.equals("n")) {
+                break;
+            }
+
+            System.out.println("알파벳 y 또는 n 으로 입력하세요.");
+        }
+
+        if (yn.equals("y")) {
+            participant.addCard(CardSupplier.getCard());
+            //outputview.participantStatus(participant);
+        }
+
+        return participant;
     }
 }

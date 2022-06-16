@@ -47,6 +47,12 @@ public class ParticipantTest {
     }
 
     @Test
+    void getName() {
+        assertThat(new Dealer().getName()).isEqualTo("Dealer");
+        assertThat(new Player("yena").getName()).isEqualTo("yena");
+    }
+
+    @Test
     void getScore() {
         //given
         human = new Player("yena");
