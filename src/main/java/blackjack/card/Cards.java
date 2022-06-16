@@ -18,6 +18,12 @@ public class Cards {
     }
 
     public void changeHiddenStatusSecondCard() {
+        /**
+         * Cards를 생성하면서 소유자의 instanceOf를 확인해서
+         * Dealer의 경우 addCard에서 자동으로 두번째 카드를 히든으로 만들어보려 했지만
+         * 어짜피 게임종료 시점에서 히든카드도 오픈을 해야하므로
+         * 절차적으로 필요한 시기에 호출을 하도록 개별 메서드로 정리
+         */
         if (cards.size() >= 2) {
             cards.set(1, cards.get(1).changeHiddenStatus());
         }

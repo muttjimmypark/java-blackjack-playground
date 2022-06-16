@@ -17,9 +17,7 @@ public class Card {
 
     public Card() {
         this(new Random().nextInt(NUMBER_UPPER_LIMIT) + NUMBER_LOWER_LIMIT,
-                Arrays.stream(Suit.values())
-                        .toList()
-                        .get(new Random().nextInt(4)));
+                Arrays.asList(Suit.values()).get(new Random().nextInt(4)));
     }
 
     public Card(int number, String suit) {
@@ -57,12 +55,12 @@ public class Card {
     }
 
     private String numberToString(int number) {
-        List<String> overTenCharacter = Arrays.asList("A", "J", "Q", "K");
+        List<String> replaceNumberToString = Arrays.asList("A", "J", "Q", "K");
         if (number == 1) {
-            return overTenCharacter.get(0);
+            return replaceNumberToString.get(0);
         }
         if (number > CALCULATE_UPPER_LIMIT) {
-            return overTenCharacter.get(number - CALCULATE_UPPER_LIMIT);
+            return replaceNumberToString.get(number - CALCULATE_UPPER_LIMIT);
         }
 
         return Integer.toString(number);

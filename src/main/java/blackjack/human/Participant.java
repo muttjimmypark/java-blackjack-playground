@@ -26,6 +26,10 @@ public class Participant {
         cards.addCard(card);
     }
 
+    public String getName() {
+        return name;
+    }
+
     public int getScore() {
         return cards.getScore();
     }
