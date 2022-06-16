@@ -23,7 +23,7 @@ public class InputView {
     }
 
     private static Participant getParticipantMoney(String name) {
-        System.out.printf("%s의 배팅 금액은? : ", name);
+        System.out.printf("%s의 배팅 금액은? (숫자로 입력) : ", name);
         return new Player(name, new Scanner(System.in).nextInt());
     }
 
@@ -54,7 +54,7 @@ public class InputView {
 
         if (yn.equals("y")) {
             participant.addCard(CardSupplier.getCard());
-            //outputview.participantStatus(participant);
+            OutputView.participantStatus(participant);
         }
 
         return participant;
