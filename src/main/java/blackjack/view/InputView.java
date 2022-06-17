@@ -41,7 +41,7 @@ public class InputView {
     public static Participant askMoreCard(Participant participant) {
         String yn;
 
-        while (true) {
+        while (participant.getLife() && participant.getWantMoreCard()) {
             System.out.printf("%s는 카드를 한장 더 받겠습니까? (y/n) : ", participant.getName());
             yn = new Scanner(System.in).next().toLowerCase();
 
@@ -55,6 +55,10 @@ public class InputView {
         if (yn.equals("y")) {
             participant.addCard(CardSupplier.getCard());
             OutputView.participantStatus(participant);
+        }
+
+        if (yn.equals("n")) {
+            participant.noMoreWantCard();
         }
 
         return participant;

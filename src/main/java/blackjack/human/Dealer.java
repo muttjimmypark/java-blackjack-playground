@@ -12,9 +12,16 @@ public class Dealer extends Participant {
         super(DEALER_NAME, money);
     }
 
+    public void changeHiddenStatusSecondCard() {
+        cards.changeHiddenStatusSecondCard();
+    }
+
     public void moreCardAutoPlay() {
         if (getScore() <= 16) {
             this.addCard(CardSupplier.getCard());
+        }
+        else {
+            noMoreWantCard();
         }
 
         OutputView.dealerAutoPlayMessage(getScore());

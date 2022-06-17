@@ -11,6 +11,8 @@ public class Participant {
     protected final String name;
     protected final Cards cards;
     protected int money;
+    protected boolean wantMoreCard;
+    protected boolean life;
 
     protected Participant(String name) {
         this(name, 0);
@@ -20,6 +22,8 @@ public class Participant {
         this.name = name;
         cards = new Cards();
         this.money = money;
+        wantMoreCard = true;
+        life = true;
     }
 
     public void addCard(Card card) {
@@ -31,6 +35,9 @@ public class Participant {
     }
 
     public int getScore() {
+        if (cards.getScore() > 21) {
+            life = false;
+        }
         return cards.getScore();
     }
 
@@ -44,6 +51,18 @@ public class Participant {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public void noMoreWantCard() {
+        wantMoreCard = false;
+    }
+
+    public boolean getWantMoreCard() {
+        return wantMoreCard;
+    }
+
+    public boolean getLife() {
+        return life;
     }
 
     @Override
