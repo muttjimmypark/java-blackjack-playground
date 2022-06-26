@@ -1,5 +1,7 @@
 package nextstep.optional;
 
+import java.util.Optional;
+
 public class User {
     private String name;
     private Integer age;
@@ -32,8 +34,13 @@ public class User {
         return isInRange;
     }
 
+    //Optional에 넣음으로서 인자가 null이 아님을 보증?
+    // 또한 원하는 return값의 내용과 자료형을 출력
     public static boolean ageIsInRange2(User user) {
-        return false;
+        return Optional.ofNullable(user)
+                .map(User::getAge)
+                .filter(u -> u >= 30 && u <= 45)
+                .isPresent();
     }
 
     @Override
