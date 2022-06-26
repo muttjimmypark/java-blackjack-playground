@@ -35,6 +35,7 @@ public class BlackjackService {
 
     /**
      * 본 종료조건이 발동되기 전까지 InputView.askMoreCard가 동작하도록 한다
+     * 종료조건들을 발동되면 각 참가자에게 isWinner를 매겨준다
      *
      * 21이 발생하는 경우
      * 아무도 카드를 추가로 받지않는 경우
@@ -48,18 +49,52 @@ public class BlackjackService {
     }
 
     private static boolean checkAppear21(List<Participant> participants) {
-        return participants.stream()
+        if (participants.stream()
                 .map(Participant::getScore)
-                .anyMatch(score -> score == 21);
+                .anyMatch(score -> score == 21)) {
+            participants.forEach(participant -> {
+                if (participant.getScore() == 21) {
+                    participant.isWinner();
+                }
+            });
+
+            return true;
+        }
+
+        return false;
     }
 
     private static boolean checkNobodyWantMoreCard(List<Participant> participants) {
-        return participants.stream()
-                .noneMatch(Participant::getWantMoreCard);
+        if (participants.stream()
+                .noneMatch(Participant::getWantMoreCard)) {
+            int winningScore = participants.stream()
+                    .mapToInt(Participant::getScore)
+                    .max()
+                    .orElse(0);
+            participants.forEach(participant -> {
+                if (participant.getScore() == winningScore) {
+                    participant.isWinner();
+                }
+            });
+
+            return true;
+        }
+
+        return false;
     }
 
     private static boolean checkDealerDead(List<Participant> participants) {
-        return !participants.get(participants.size() - 1).getLife();
+        if (participants.get(participants.size() - 1).getLife()) {
+            return false;
+        }
+
+        participants.forEach(participant -> {
+            if (participant.getLife()) {
+                participant.isWinner();
+            }
+        });
+
+        return true;
     }
 
 

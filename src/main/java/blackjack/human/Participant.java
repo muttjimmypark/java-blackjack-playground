@@ -14,6 +14,7 @@ public class Participant {
     protected int lastMoney;
     protected boolean wantMoreCard;
     protected boolean life;
+    protected boolean winStatus;
 
     protected Participant(String name) {
         this(name, 0);
@@ -26,6 +27,7 @@ public class Participant {
         lastMoney = firstMoney;
         wantMoreCard = true;
         life = true;
+        winStatus = false;
     }
 
     public void addCard(Card card) {
@@ -73,6 +75,10 @@ public class Participant {
         if (cards.getScore() > 21) {
             life = false;
         }
+    }
+
+    public void isWinner() {
+        winStatus = true;
     }
 
     @Override
