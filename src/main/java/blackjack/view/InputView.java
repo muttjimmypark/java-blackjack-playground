@@ -74,13 +74,13 @@ public class InputView {
 
 
     private static void autoPlayForDealer(Dealer dealer) {
-        OutputView.dealerAutoPlayMessage(dealer.getScore());
-
         if (dealer.getScore() <= 16) {
             dealer.addCard(CardSupplier.getCard());
+            System.out.println("딜러의 점수가 16 이하이므로, 카드를 한장 더 받았습니다.");
         }
         else {
             dealer.noMoreWantCard();
+            System.out.println("딜러의 점수가 16 초과이므로, 카드를 더 받지 않았습니다.");
         }
     }
 }

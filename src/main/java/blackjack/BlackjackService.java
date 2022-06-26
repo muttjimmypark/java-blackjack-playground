@@ -34,36 +34,41 @@ public class BlackjackService {
     }
 
     /**
+     * 본 종료조건이 발동되기 전까지 InputView.askMoreCard가 동작하도록 한다
+     *
      * 21이 발생하는 경우
      * 아무도 카드를 추가로 받지않는 경우
      * 21초과는 혼자 게임오버고 플레이어가 남아있으면 진행
      * 딜러가 21 오버로 죽는 경우
      */
-    public boolean checkGameOver(List<Participant> participants) {
+    public static boolean checkGameOver(List<Participant> participants) {
         return checkAppear21(participants)
                 || checkNobodyWantMoreCard(participants)
                 || checkDealerDead(participants);
     }
 
-    private boolean checkAppear21(List<Participant> participants) {
+    private static boolean checkAppear21(List<Participant> participants) {
         return participants.stream()
                 .map(Participant::getScore)
                 .anyMatch(score -> score == 21);
     }
 
-    private boolean checkNobodyWantMoreCard(List<Participant> participants) {
+    private static boolean checkNobodyWantMoreCard(List<Participant> participants) {
         return participants.stream()
                 .noneMatch(Participant::getWantMoreCard);
     }
 
-    private boolean checkDealerDead(List<Participant> participants) {
+    private static boolean checkDealerDead(List<Participant> participants) {
         return !participants.get(participants.size() - 1).getLife();
     }
 
 
     /**
-     *
+     * 종료되면
+     * 1. 스코어는 addCar() 할때마다 수시로 계산하므로 OutputView.participantScoreResult(p)
+     * 2. 본 메서드에서 게임 후 수익 계산
+     * 3. OutputView.participantsMoneyResult(p)로 최종 수익 출력
      */
-    public void finallyCountMoneys(List<Participant> participants) {
+    public static void finallyCountMoneys(List<Participant> participants) {
     }
 }
