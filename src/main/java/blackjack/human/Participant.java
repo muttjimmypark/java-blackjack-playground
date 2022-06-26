@@ -10,7 +10,8 @@ public class Participant {
     public static final String ERROR_WRONG_NAME = "참가자 이름은 딜러가 될 수 없습니다.";
     protected final String name;
     protected final Cards cards;
-    protected int money;
+    protected int firstMoney;
+    protected int lastMoney;
     protected boolean wantMoreCard;
     protected boolean life;
 
@@ -18,16 +19,22 @@ public class Participant {
         this(name, 0);
     }
 
-    protected Participant(String name, int money) {
+    protected Participant(String name, int firstMoney) {
         this.name = name;
         cards = new Cards();
-        this.money = money;
+        this.firstMoney = firstMoney;
+        lastMoney = firstMoney;
         wantMoreCard = true;
         life = true;
     }
 
     public void addCard(Card card) {
         cards.addCard(card);
+        validateLife();
+    }
+
+    public String getCardsString() {
+        return cards.toString();
     }
 
     public String getName() {
@@ -35,22 +42,19 @@ public class Participant {
     }
 
     public int getScore() {
-        if (cards.getScore() > 21) {
-            life = false;
-        }
         return cards.getScore();
     }
 
-    public String getCardsString() {
-        return cards.toString();
+    public int getFirstMoney() {
+        return firstMoney;
     }
 
-    public int getMoney() {
-        return money;
+    public int getLastMoney() {
+        return lastMoney;
     }
 
-    public void setMoney(int money) {
-        this.money = money;
+    public void setLastMoney(int lastMoney) {
+        this.lastMoney = lastMoney;
     }
 
     public void noMoreWantCard() {
@@ -63,6 +67,12 @@ public class Participant {
 
     public boolean getLife() {
         return life;
+    }
+
+    private void validateLife() {
+        if (cards.getScore() > 21) {
+            life = false;
+        }
     }
 
     @Override

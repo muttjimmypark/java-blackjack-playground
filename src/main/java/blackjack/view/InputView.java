@@ -22,16 +22,18 @@ public class InputView {
         return result;
     }
 
-    private static Participant getParticipantMoney(String name) {
-        System.out.printf("%s의 배팅 금액은? (숫자로 입력) : ", name);
-        return new Player(name, new Scanner(System.in).nextInt());
-    }
-
     private static List<String> getParticipantsNames() {
         System.out.print("게임에 참여할 사람의 이름을 입력하세요. (쉼표를 기준으로 분리) : ");
-        String nameInput = new Scanner(System.in).nextLine().replaceAll(" ", "");
 
-        return Arrays.asList(nameInput.split(","));
+        return Arrays.asList(
+                new Scanner(System.in).nextLine()
+                        .replaceAll(" ", "")
+                        .split(","));
+    }
+
+    private static Participant getParticipantMoney(String name) {
+        System.out.print(name + "의 배팅 금액은? (숫자로 입력) : ");
+        return new Player(name, new Scanner(System.in).nextInt());
     }
 
 
@@ -39,10 +41,16 @@ public class InputView {
      *
      */
     public static Participant askMoreCard(Participant participant) {
-        String yn;
+        if (participant instanceof Dealer) {
+            autoPlayForDealer((Dealer) participant);
+
+            return participant;
+        }
+
+        String yn = "";
 
         while (participant.getLife() && participant.getWantMoreCard()) {
-            System.out.printf("%s는 카드를 한장 더 받겠습니까? (y/n) : ", participant.getName());
+            System.out.print(participant.getName() + "은/는 카드를 한장 더 받겠습니까? (y/n) : ");
             yn = new Scanner(System.in).next().toLowerCase();
 
             if (yn.equals("y") || yn.equals("n")) {
@@ -62,5 +70,17 @@ public class InputView {
         }
 
         return participant;
+    }
+
+
+    private static void autoPlayForDealer(Dealer dealer) {
+        OutputView.dealerAutoPlayMessage(dealer.getScore());
+
+        if (dealer.getScore() <= 16) {
+            dealer.addCard(CardSupplier.getCard());
+        }
+        else {
+            dealer.noMoreWantCard();
+        }
     }
 }

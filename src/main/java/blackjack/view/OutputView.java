@@ -17,20 +17,19 @@ public class OutputView {
     }
 
     public static void startGameMessage(List<Participant> participants) {
-        System.out.printf("%s에게 2장씩 카드를 나눠줬습니다.",
-                participants.stream()
+        System.out.println(participants.stream()
                         .map(Participant::getName)
                         .collect(Collectors.toList())
-                );
+                        + "에게 2장씩 카드를 나눠줬습니다.");
     }
 
     public static void participantStatus(Participant participant) {
-        System.out.printf("%s의 카드 : %s", participant.getName(), participant.getCardsString());
+        System.out.println(participant.getName() + "의 카드 : " + participant.getCardsString());
     }
 
     public static void participantScoreResult(Participant participant) {
         participantStatus(participant);
-        System.out.printf("->  점수 결과 : %d", participant.getScore());
+        System.out.println("->  점수 결과 : " + participant.getScore());
     }
 
     public static void participantsMoneyResult(List<Participant> participants) {
@@ -39,6 +38,6 @@ public class OutputView {
     }
 
     private static void participantMoneyResult(Participant participant) {
-        System.out.printf("%s : %d", participant.getName(), participant.getMoney());
+        System.out.println(participant.getName() + " : " + participant.getFirstMoney() + " -> " + participant.getLastMoney());
     }
 }

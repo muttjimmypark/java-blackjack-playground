@@ -34,6 +34,8 @@ public class Card {
         return Math.min(CALCULATE_UPPER_LIMIT, number);
     }
 
+    //Cards에서 2번 카드 상태 변경을 List<>의 set/put으로 해야되므로
+    //void 메서드가 아닌 Card를 return하게끔 할수밖에 없었다
     public Card changeHiddenStatus() {
         Card editCard = this;
         editCard.hiddenStatus = !editCard.hiddenStatus;

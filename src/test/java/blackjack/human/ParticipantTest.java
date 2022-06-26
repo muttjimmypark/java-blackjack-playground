@@ -66,27 +66,40 @@ public class ParticipantTest {
     }
 
     @Test
-    void money_constructor() {
-        human = new Dealer(500);
-        assertThat(human.getMoney()).isEqualTo(500);
-        human.setMoney(1000);
-        assertThat(human.getMoney()).isEqualTo(1000);
+    void firstMoney_lastMoney() {
+        human = new Dealer();
+        assertThat(human.getFirstMoney()).isEqualTo(0);
+        human.setLastMoney(1000);
+        assertThat(human.getFirstMoney()).isEqualTo(0);
+        assertThat(human.getLastMoney()).isEqualTo(1000);
 
         human = new Player("yena", 23);
-        assertThat(human.getMoney()).isEqualTo(23);
-        human.setMoney(1);
-        assertThat(human.getMoney()).isEqualTo(1);
+        assertThat(human.getFirstMoney()).isEqualTo(23);
+        human.setLastMoney(1);
+        assertThat(human.getFirstMoney()).isEqualTo(23);
+        assertThat(human.getLastMoney()).isEqualTo(1);
     }
 
     @Test
-    void money_getterSetter() {
-        //given
+    void noMoreWantCard() {
         human = new Dealer();
+        assertThat(human.getWantMoreCard()).isTrue();
 
-        //when
-        human.setMoney(181029);
+        human.noMoreWantCard();
+        assertThat(human.getWantMoreCard()).isFalse();
+    }
 
-        //then
-        assertThat(human.getMoney()).isEqualTo(181029);
+    @Test
+    void lifeCycle() {
+        human = new Dealer();
+        assertThat(human.getLife()).isTrue();
+
+        human.addCard(new Card(4, Suit.HEART));
+        human.addCard(new Card(12, Suit.DIAMOND));
+        assertThat(human.getLife()).isTrue();
+
+
+        human.addCard(new Card(12, Suit.CLUB));
+        assertThat(human.getLife()).isFalse();
     }
 }

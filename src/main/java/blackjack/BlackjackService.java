@@ -8,31 +8,27 @@ import blackjack.view.OutputView;
 
 import java.util.List;
 
-public class Blackjack {
+public class BlackjackService {
 
-    public List<Participant> initializeGame() {
-        List<Participant> result = InputView.getParticipants();
+    public static List<Participant> initializeGame() {
+        List<Participant> result = supplyTwoCards(InputView.getParticipants());
 
-        OutputView.startGameMessage(supplyTwoCards(result));
+        OutputView.startGameMessage(result);
 
         return result;
     }
 
-    private List<Participant> supplyTwoCards(List<Participant> participants) {
+    private static List<Participant> supplyTwoCards(List<Participant> participants) {
         List<Participant> result = participants;
 
-        for (int i = 0; i < 1; i++) {
-            result.forEach(participant -> participant.addCard(CardSupplier.getCard()));
-        }
+        //초기 카드 2장 배부
+        result.forEach(participant -> participant.addCard(CardSupplier.getCard()));
+        result.forEach(participant -> participant.addCard(CardSupplier.getCard()));
 
-        for (int i = 0; i < result.size(); i++) {
-            Participant isDealer = result.get(i);
-
-            if (isDealer instanceof Dealer) {
-                ((Dealer) isDealer).changeHiddenStatusSecondCard();
-                result.set(i, isDealer);
-            }
-        }
+        //첫 카드공급 후 딜러의 두번째 카드는 히든으로
+        Dealer dealer = (Dealer) result.get(result.size() - 1);
+        dealer.changeHiddenStatusSecondCard();
+        result.set(result.size() - 1, dealer);
 
         return result;
     }
@@ -40,7 +36,7 @@ public class Blackjack {
     /**
      * 21이 발생하는 경우
      * 아무도 카드를 추가로 받지않는 경우
-     * 21 오버는 혼자 게임오버고 플레이어가 남아있으면 진행
+     * 21초과는 혼자 게임오버고 플레이어가 남아있으면 진행
      * 딜러가 21 오버로 죽는 경우
      */
     public boolean checkGameOver(List<Participant> participants) {
@@ -61,9 +57,7 @@ public class Blackjack {
     }
 
     private boolean checkDealerDead(List<Participant> participants) {
-        return participants.stream()
-                .filter(participant -> participant instanceof Dealer)
-                .noneMatch(Participant::getLife);
+        return !participants.get(participants.size() - 1).getLife();
     }
 
 
